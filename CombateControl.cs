@@ -1,23 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CombateControl : MonoBehaviour
 {
     public enum FaseCombate {inputing, punching, oponent, dodging}
     public FaseCombate fase;
     int inputs, falis, hits;
+
+    private enemyBehavior scriptEnemigo;
+    public float hpMaxEne, hpMaxJug;
+
+    public Image barraVidaEnemiga;
     // Start is called before the first frame update
     void Start()
     {
-        
+        scriptEnemigo = GameObject.FindGameObjectWithTag("enemy").GetComponent<enemyBehavior>();
         fase = FaseCombate.inputing;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        barraVidaEnemiga.fillAmount = scriptEnemigo.hp / hpMaxEne;
     }
     public void CambioFase()
     {
@@ -49,7 +55,7 @@ public class CombateControl : MonoBehaviour
                 current = "tuTurno";
                 break;
             case FaseCombate.punching:
-                current = "";
+                current = "punching";
                 break;
             case FaseCombate.oponent:
                 current = "oponenteTurno";
